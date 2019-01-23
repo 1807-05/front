@@ -10,11 +10,11 @@
     <script src="/show/js/simpleCart.min.js"> </script>
     <!-- slide -->
     <script src="/show/js/responsiveslides.min.js"></script>
-  <!--  <script>
-        $(function () {
+    <!--  <script>
+          $(function () {
 
-        });
-    </script>-->
+          });
+      </script>-->
     <style type="text/css">
         a{
             text-decoration: none;
@@ -24,53 +24,8 @@
     <script type="text/javascript">
 
     </script>
-
 </head>
-
-<script type="text/javascript">
-    $(function(){
-        queryLeftLi();
-    })
-    //动画效果
-  function aaaaaa(){
-      $('.nav_mini ul li').hover(function(){
-          $(this).find('.two_nav').show(100);
-      },function(){
-          $(this).find('.two_nav').hide(100);
-      })
-  }
-
-    function queryLeftLi(){
-        $.ajax({
-            url:"/left/showLeft",
-            type : "POST",
-            success : function(classs) {
-
-                var coun = "";
-                $.each(classs, function (index, obj) {
-
-                    coun += "<li>";
-                    coun += "<a href=''>"+obj.flmch1+"</a>";
-                    coun += "<div class='two_nav' style='display: none;'>"+obj.class2+"</div>";
-                    coun += "</li>";
-
-                })
-                $("#left_ul").append(coun);
-                //动画效果
-                aaaaaa();
-            },
-            error : function() {
-                alert("ajax访问失败了,查看控制台");
-            }
-        });
-    }
-
-</script>
 <body>
-
-
-
-
 <div class="top">
     <div class="top_text">
         <a>用户登录</a>
@@ -98,9 +53,6 @@
     </div>
     <div class="card">
         <a href="">购物车<div class="num">3</div></a>
-        <a href="" onclick="">购物车<div class="num">0</div></a>
-
-        &lt;!&ndash;购物车商品&ndash;&gt;
         <!--&lt;!&ndash;购物车商品&ndash;&gt;
         <div class="cart_pro">
             <h6>最新加入的商品</h6>
@@ -158,65 +110,114 @@
                     </ul>
                 </div>
             </div>
-            <ul>
-                <li><a href="">服装城</a></li>
-                <li><a href="">美妆馆</a></li>
-                <li><a href="">超市</a></li>
-                <li><a href="">全球购</a></li>
-                <li><a href="">闪购</a></li>
-                <li><a href="">团购</a></li>
-                <li><a href="">拍卖</a></li>
-                <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+            <ul id="uu">
+                <li></li>
             </ul>
         </div>
     </div>
 </div>
-<div class="banner" style="float:right;margin-left: 50px">
-    <div class="col-sm-6 matter-banner">
-        <div class="slider">
-            <div class="callbacks_container" style="margin-left: 140px" >
-                <ul class='rslides' id='slider'>
-
-                </ul>
-            </div>
-        </div>
+<div class="banner">
+    <div class="ban">
+        <img src="/jd/images/banner.jpg" width="980" height="380" alt="">
     </div>
 </div>
+<div class="banner">
+    <div class="ban" id='slider'>
+
+    </div>
+</div>
+
 </body>
-<script>
+<script type="text/javascript">
+    $(function(){
+        queryLeftLi();
+        getImgs(flog);
+        getTitle();
+    })
+
+    //动画效果
+    function aaaaaa(){
+        $('.nav_mini ul li').hover(function(){
+            $(this).find('.two_nav').show(100);
+        },function(){
+            $(this).find('.two_nav').hide(100);
+        })
+    }
+
+    function queryLeftLi(){
+        $.ajax({
+            url:"/left/showLeft",
+            type : "POST",
+            success : function(classs) {
+
+                var coun = "";
+                $.each(classs, function (index, obj) {
+
+                    coun += "<li>";
+                    coun += "<a href=''>"+obj.flmch1+"</a>";
+                    coun += "<div class='two_nav' style='display: none;'>"+obj.class2+"</div>";
+                    coun += "</li>";
+
+                })
+                $("#left_ul").append(coun);
+                //动画效果
+                aaaaaa();
+            },
+            error : function() {
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+
     var mydate=new Date();
     var myddy=mydate.getDay();//获取存储当前日期
     var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
     //document.write("今天是：" + weekday[myddy]);
     var flog=weekday[myddy];
-    $(function(){
-        getImgs(flog);
-    });
-        function getImgs(flog){
-            $.ajax({
-                url:"getImgs?flog="+flog,
-                type : "POST",
-                success : function(backList) {
-                    console.log(backList);
-                    var coun = "";
-                    $.each(backList, function (index, obj) {
-                        //拼接属性名字
-                        coun+=" <li> <img src="+obj.name+" width='980' height='395' alt=''></li>"
-                    })
-                    $("#slider").html(coun);
-                    $("#slider").responsiveSlides({
-                        auto: true,
-                        speed: 500,
-                        namespace: "callbacks",
-                        pager: true,
-                    });
-                },
-                error : function() {
-                    alert("ajax访问失败了,查看控制台");
-                }
-            });
-        }
+
+    function getImgs(flog){
+        $.ajax({
+            url:"/view/getImgs?flog="+flog,
+            type : "POST",
+            success : function(backList) {
+                console.log(backList);
+                var coun = "";
+                $.each(backList, function (index, obj) {
+                    //拼接属性名字
+                    coun+="  <img src="+obj.name+" width='700' height='395' alt=''>"
+                })
+                $("#slider").html(coun);
+                $("#slider").responsiveSlides({
+                    auto: true,
+                    speed: 200,
+                    namespace: "callbacks",
+                    pager: true,
+                });
+            },
+            error : function() {
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+
+
+    function getTitle(){
+        $.ajax({
+            url:"/title/queryTitle",
+            type:"POST",
+            success:function(pageUtil){
+                var count=''
+                $.each(pageUtil,function (index,obj) {
+                    count +='<li><a href="'+obj.href+'">'+obj.name+'</a></li>';
+                })
+                $("#uu").append(count)
+            },
+            error:function(){
+                alert("失败了");
+            }
+        });
+    }
+
 </script>
 </html>
 
