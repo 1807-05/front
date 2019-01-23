@@ -1,15 +1,16 @@
 package com.jk.controller;
 
+import com.jk.bean.Week;
+import com.jk.service.MenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
+import javax.swing.text.View;
+import java.util.List;
 
-/**
- * @Description: 骚骚的🐏
- * @Author: 杨
- * @Date: 2019/1/23 14:42
- */
 @Controller
 @RequestMapping("view")
 public class menu {
@@ -19,4 +20,14 @@ public class menu {
         return view;
     }
 
+    @Autowired
+    private MenuService menuService;
+
+    @RequestMapping("getImgs")
+    @ResponseBody
+    public List<Week> getImgs(String flog){
+
+
+        return   menuService.getImgs(flog);
+    }
 }
