@@ -5,5 +5,5 @@ import com.jk.bean.Login;
 public interface LoginService {
 
     //登陆
-    Login getUserInfoByLoginNumber(String loginacct);
+    Login login(Login user);
 }

@@ -50,7 +50,7 @@
         var loginacct=$("#username").val();
         var userpswd=$("#userPassword").val();
         $.ajax({
-            url:'/attr/login.jhtml',
+            url:'/login/login',
             type:'post',
             data:{
                 loginacct:$("#username").val(),
@@ -59,7 +59,7 @@
             dataType:'json',
             success: function(result) {
                 if (result.success) {
-                    window.location.href="/index"
+                    window.location.href="/login/index"
                     alert("登录成功");
                     //layer.msg('登录成功', {time:1000, icon:5, shift:6})
                 } else {

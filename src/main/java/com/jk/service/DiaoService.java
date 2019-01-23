@@ -5,5 +5,5 @@ import com.jk.bean.Login;
 public interface DiaoService {
 
     //登陆
-    Login getUserInfoByLoginNumber(String loginacct);
+    Login login(Login user);
 }

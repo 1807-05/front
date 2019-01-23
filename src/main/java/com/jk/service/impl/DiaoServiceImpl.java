@@ -11,11 +11,13 @@ public class DiaoServiceImpl implements DiaoService {
     @Reference
     LoginService loginService;
 
+    //登陆
+    @Override
+    public Login login(Login user) {
+        return loginService.login(user);
+    }
+
 
     //登陸
-    @Override
-    public Login getUserInfoByLoginNumber(String loginacct) {
 
-        return loginService.getUserInfoByLoginNumber(loginacct);
-    }
 }
