@@ -7,17 +7,55 @@
     <script src="/js/jquery-2.1.1.min.js"></script>
 
     <script type="text/javascript">
-        $(function(){
-            $('.nav_mini ul li').hover(function(){
-                $(this).find('.two_nav').show(100);
-            },function(){
-                $(this).find('.two_nav').hide(100);
-            })
-        })
+
     </script>
 
 </head>
+
+<script type="text/javascript">
+    $(function(){
+        queryLeftLi();
+    })
+    //动画效果
+  function aaaaaa(){
+      $('.nav_mini ul li').hover(function(){
+          $(this).find('.two_nav').show(100);
+      },function(){
+          $(this).find('.two_nav').hide(100);
+      })
+  }
+
+    function queryLeftLi(){
+        $.ajax({
+            url:"/left/showLeft",
+            type : "POST",
+            success : function(classs) {
+
+                var coun = "";
+                $.each(classs, function (index, obj) {
+
+                    coun += "<li>";
+                    coun += "<a href=''>"+obj.flmch1+"</a>";
+                    coun += "<div class='two_nav' style='display: none;'>"+obj.class2+"</div>";
+                    coun += "</li>";
+
+                })
+                $("#left_ul").append(coun);
+                //动画效果
+                aaaaaa();
+            },
+            error : function() {
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+
+</script>
 <body>
+
+
+
+
 <div class="top">
     <div class="top_text">
         <a href="">用户登录</a>
@@ -44,9 +82,9 @@
         </div>
     </div>
     <div class="card">
-        <a href="">购物车<div class="num">0</div></a>
+        <a href="">购物车<div class="num">3</div></a>
 
-        <!--购物车商品-->
+        &lt;!&ndash;购物车商品&ndash;&gt;
         <div class="cart_pro">
             <h6>最新加入的商品</h6>
             <div class="one">
@@ -101,37 +139,7 @@
             <div class="left_nav">
                 全部商品分类
                 <div class="nav_mini">
-                    <ul>
-                        <li>
-                            <a href="">家用电器</a>
-                            <div class="two_nav">
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                            </div>
-                        </li>
-                        <li><a href="">手机、数码、通信</a></li>
-                        <li><a href="">电脑、办公</a></li>
-                        <li><a href="">家具、家居、家装</a></li>
-                        <li><a href="">男装、女装、内衣</a></li>
-                        <li><a href="">个户化妆</a></li>
-                        <li><a href="">鞋靴</a></li>
-                        <li><a href="">户外运动</a></li>
-                        <li><a href="">汽车</a></li>
-                        <li><a href="">母婴</a></li>
-                        <li><a href="">食品</a></li>
-                        <li><a href="">营养保健</a></li>
-                        <li><a href="">图书</a></li>
-                        <li><a href="">彩票</a></li>
-                        <li><a href="">理财</a></li>
+                    <ul id="left_ul">
                     </ul>
                 </div>
             </div>
@@ -157,3 +165,4 @@
 
 </body>
 </html>
+
