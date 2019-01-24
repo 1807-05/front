@@ -31,6 +31,7 @@
     $(function(){
         queryLeftLi();
         getImgs(flog);
+        queryTitle();
     })
     //动画效果
   function aaaaaa(){
@@ -40,7 +41,7 @@
           $(this).find('.two_nav').hide(100);
       })
   }
-
+  //首页左侧菜单
     function queryLeftLi(){
         $.ajax({
             url:"/left/showLeft",
@@ -65,6 +66,29 @@
             }
         });
     }
+
+    //查询  title
+    function queryTitle(){
+        $.ajax({
+            url:"/title/queryTitle",
+            type : "POST",
+            success : function(title) {
+
+                var titlecount = "";
+                $.each(title, function (index, obj) {
+
+                    titlecount += " <li><a href='"+obj.href+"'>"+obj.name+"</a></li>";
+
+                })
+                $("#title").append(titlecount);
+
+            },
+            error : function() {
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+
 
 </script>
 <body>
@@ -156,16 +180,8 @@
                     </ul>
                 </div>
             </div>
-            <ul>
-                <li><a href="">服装城</a></li>
-                <li><a href="">美妆馆</a></li>
-                <li><a href="">超市</a></li>
-                <li><a href="">全球购</a></li>
-                <li><a href="">闪购</a></li>
-                <li><a href="">团购</a></li>
-                <li><a href="">拍卖</a></li>
-                <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+            <ul id="title">
+
             </ul>
         </div>
     </div>

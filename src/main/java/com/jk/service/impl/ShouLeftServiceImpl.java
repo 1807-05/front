@@ -27,7 +27,7 @@ public class ShouLeftServiceImpl implements ShouLeftService {
             List<Class2> nameList = shouLeftMapper.Class1ByIdgetClass2Name(Class1.getId());
             String flag="";
             for (Class2 Class2 : nameList) {
-                flag+="<a href='/view/toview?view=jiansuo&id1="+Class1.getId()+"&id2="+Class2.getId()+"'>"+Class2.getFlmch2()+"</a>  ";
+                flag+="<a href='/view/toview?view=jiansuo&id1="+Class1.getId()+"&name1="+Class1.getFlmch1()+"&id2="+Class2.getId()+"&name2="+Class2.getFlmch2()+"'>"+Class2.getFlmch2()+"</a>  ";
             }
 
             Class1.setClass2(flag);
