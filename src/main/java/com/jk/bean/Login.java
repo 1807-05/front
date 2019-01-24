@@ -10,6 +10,8 @@ public class Login implements Serializable {
 
     private String userpswd;
 
+    private String RememberPswd;
+
     public Integer getId() {
         return id;
     }
@@ -34,12 +36,21 @@ public class Login implements Serializable {
         this.userpswd = userpswd;
     }
 
+    public String getRememberPswd() {
+        return RememberPswd;
+    }
+
+    public void setRememberPswd(String rememberPswd) {
+        RememberPswd = rememberPswd;
+    }
+
     @Override
     public String toString() {
         return "Login{" +
                 "id=" + id +
                 ", loginacct='" + loginacct + '\'' +
                 ", userpswd='" + userpswd + '\'' +
+                ", RememberPswd='" + RememberPswd + '\'' +
                 '}';
     }
 }

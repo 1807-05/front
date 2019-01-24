@@ -1,36 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" type="text/css" href="/jd/css/css.css">
     <script src="/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="/show/js/memenu.js"></script>
+    <script>$(document).ready(function(){$(".memenu").memenu();});</script>
+    <script src="/show/js/simpleCart.min.js"> </script>
+    <!-- slide -->
+    <script src="/show/js/responsiveslides.min.js"></script>
+  <!--  <script>
+        $(function () {
 
+        });
+    </script>-->
+    <style type="text/css">
+        a{
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
     <script type="text/javascript">
-        $(function(){
-            $('.nav_mini ul li').hover(function(){
-                $(this).find('.two_nav').show(100);
-            },function(){
-                $(this).find('.two_nav').hide(100);
-            })
-        })
+
     </script>
 
 </head>
-<body>
+
+<script type="text/javascript">
+    $(function(){
+        queryLeftLi();
+        getImgs(flog);
+        queryTitle();
+        getCookie();
+    })
+    //获取后台存入的cookie的账号
+
+    function getCookie(){
+
+        //之前是在服务器操作cookie  现在在浏览器操作cookie
+        var str = document.cookie.split("=");
+
+
+        $("#zhanghao").html(str[1])
+
+    }
+
+
+
+    //动画效果
+  function aaaaaa(){
+      $('.nav_mini ul li').hover(function(){
+          $(this).find('.two_nav').show(100);
+      },function(){
+          $(this).find('.two_nav').hide(100);
+      })
+  }
+  //首页左侧菜单
+    function queryLeftLi(){
+        $.ajax({
+            url:"/left/showLeft",
+            type : "POST",
+            success : function(classs) {
+
+                var coun = "";
+                $.each(classs, function (index, obj) {
+
+                    coun += "<li>";
+                    coun += "<a href=''>"+obj.flmch1+"</a>";
+                    coun += "<div class='two_nav' style='display: none;'>"+obj.class2+"</div>";
+                    coun += "</li>";
+
+                })
+                $("#left_ul").append(coun);
+                //动画效果
+                aaaaaa();
+            },
+            error : function() {
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+
+    //查询  title
+    function queryTitle(){
+        $.ajax({
+            url:"/title/queryTitle",
+            type : "POST",
+            success : function(title) {
+
+                var titlecount = "";
+                $.each(title, function (index, obj) {
+
+                    titlecount += " <li><a href='"+obj.href+"'>"+obj.name+"</a></li>";
+
+                })
+                $("#title").append(titlecount);
+
+            },
+            error : function() {
+                alert("ajax访问失败了,查看控制台");
+            }
+        });
+    }
+    //注销登录
+   function zhuxiao(){
+       $.ajax({
+           url:"/login/remove",
+           type : "POST",
+           success : function(title) {
+          location.reload()
+           },
+           error : function() {
+               alert("ajax访问失败了,查看控制台");
+           }
+       });
+
+   }
+</script>
+<body >
+<a  th:if="${session.user} != null">
+    <font color="blue">欢迎</font> <font id="zhanghao" color="red"></font><font color="blue">用户登录</font>
+    <a href="javascript:zhuxiao()">注销</a>
+</a>
+
+<!--  账号  -->
 <div class="top">
+
     <div class="top_text">
-        <a href="">用户登录</a>
+
+          <a href="/login/tologin"  th:if="${session.user} == null">
+               <font id="zhanghao" color="red"></font>用户请登录
+          </a>
+
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
     </div>
 </div>
 <div class="top_img">
-    <img src="/jd/images/top_img.jpg" alt="">
+    <img src="//image5.suning.cn/uimg/cms/img/154823272581126812.png" >
 </div>
 <div class="search">
-    <div class="logo"><img src="/jd/images/logo.jpg" alt=""></div>
+    <div class="logo"><img src="http://pic37.photophoto.cn/20151203/0017029573817726_b.jpg" width="200" height="100"></div>
     <div class="search_on">
         <div class="se">
             <input type="text" name="search" class="lf">
@@ -44,9 +156,8 @@
         </div>
     </div>
     <div class="card">
-        <a href="">购物车<div class="num">0</div></a>
-
-        <!--购物车商品-->
+        <a href="">购物车<div class="num">3</div></a>
+        <!--&lt;!&ndash;购物车商品&ndash;&gt;
         <div class="cart_pro">
             <h6>最新加入的商品</h6>
             <div class="one">
@@ -81,7 +192,6 @@
 					</span>
             </div>
 
-
             <div class="gobottom">
                 共<span>2</span>件商品&nbsp;&nbsp;&nbsp;&nbsp;
                 共计￥<span>20000</span>
@@ -89,8 +199,7 @@
             </div>
 
 
-        </div>
-
+        </div>-->
     </div>
 
 
@@ -101,59 +210,59 @@
             <div class="left_nav">
                 全部商品分类
                 <div class="nav_mini">
-                    <ul>
-                        <li>
-                            <a href="">家用电器</a>
-                            <div class="two_nav">
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                                <a href="">11111</a>
-                            </div>
-                        </li>
-                        <li><a href="">手机、数码、通信</a></li>
-                        <li><a href="">电脑、办公</a></li>
-                        <li><a href="">家具、家居、家装</a></li>
-                        <li><a href="">男装、女装、内衣</a></li>
-                        <li><a href="">个户化妆</a></li>
-                        <li><a href="">鞋靴</a></li>
-                        <li><a href="">户外运动</a></li>
-                        <li><a href="">汽车</a></li>
-                        <li><a href="">母婴</a></li>
-                        <li><a href="">食品</a></li>
-                        <li><a href="">营养保健</a></li>
-                        <li><a href="">图书</a></li>
-                        <li><a href="">彩票</a></li>
-                        <li><a href="">理财</a></li>
+                    <ul id="left_ul">
                     </ul>
                 </div>
             </div>
-            <ul>
-                <li><a href="">服装城</a></li>
-                <li><a href="">美妆馆</a></li>
-                <li><a href="">超市</a></li>
-                <li><a href="">全球购</a></li>
-                <li><a href="">闪购</a></li>
-                <li><a href="">团购</a></li>
-                <li><a href="">拍卖</a></li>
-                <li><a href="">金融</a></li>
-                <li><a href="">智能</a></li>
+            <ul id="title">
+
             </ul>
         </div>
     </div>
 </div>
-<div class="banner">
+<div class="banner" style="background: url(/img/haizei.jpg);">
     <div class="ban">
         <img src="/jd/images/banner.jpg" width="980" height="380" alt="">
     </div>
 </div>
+<div class="banner">
+    <div class="ban" id='slider'>
+
+    </div>
+</div>
 
 </body>
+<script>
+    var mydate=new Date();
+    var myddy=mydate.getDay();//获取存储当前日期
+    var weekday=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+    //document.write("今天是：" + weekday[myddy]);
+    var flog=weekday[myddy];
+
+        function getImgs(flog){
+            $.ajax({
+                url:"/view/getImgs?flog="+flog,
+                type : "POST",
+                success : function(backList) {
+                    console.log(backList);
+                    var coun = "";
+                    $.each(backList, function (index, obj) {
+                        //拼接属性名字
+                        coun+="  <img src="+obj.name+" width='700' height='395' alt=''>"
+                    })
+                    $("#slider").html(coun);
+                    $("#slider").responsiveSlides({
+                        auto: true,
+                        speed: 200,
+                        namespace: "callbacks",
+                        pager: true,
+                    });
+                },
+                error : function() {
+                    alert("ajax访问失败了,查看控制台");
+                }
+            });
+        }
+</script>
 </html>
+
