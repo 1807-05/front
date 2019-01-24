@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jk.mapper.SearchMapper">
+
+
+    <!--查询属性-->
+    <select id="getAttr" resultType="attr">
+        select * from t_mall_attr where flbh2=#{id}
+    </select>
+    <!--查询属性值-->
+
+     <select id="queryMallAttrById" resultType="mallValue">
+        select * from t_mall_value  where shxm_id=#{id}
+    </select>
+
+    <select id="queryAll" resultType="product">
+        select
+        a.shp_tp,
+        a.shp_mch,
+        b.jg  jg,
+        b.sku_mch sku_mch,
+        d.shxm_mch shuxing,
+        e.shxzh_mch shuzhi,
+        e.shxzh shuNum,
+        b.kc  kc
+        from
+        t_mall_product a,
+        t_mall_sku b,
+        t_mall_sku_attr_value c1,
+        t_mall_attr d,
+        t_mall_value e
+        where a.Id =b.shp_id
+        and b.Id=c1.sku_id
+        and c1.shxm_id=d.id
+        and c1.shxzh_id=e.id
+        and a.Id=#{id}
+        limit 8
+
+    </select>
+
+    <select id="queryPai" resultType="pai">
+        select * from t_mall_trade_mark a, t_mall_product a1
+         where a.id=a1.pp_id and a1.flbh1=#{id} GROUP BY a.ppmch
+    </select>
+</mapper>
