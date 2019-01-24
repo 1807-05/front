@@ -1,9 +1,9 @@
 *{padding: 0px;margin: 0px;font-family: '微软雅黑';}
 a{text-decoration:none;color: #5A5A5A;font-family: '微软雅黑';font-size: 12px;}
-.top{width:100%;height: 30px;margin: auto;background: #f1f1f1;cursor:pointer;}
+.top{width:100%;height: 30px;margin: auto;background: red;cursor:pointer;}
 .top_text{width:1210px;height: 30px;margin: auto;}
 .top_text a{margin:0 5px;float: right;line-height: 30px;}
-.top_img{width: 100%;height: auto;overflow: hidden;margin: auto;text-align: center;background: #f72d77}
+.top_img{width: 100%;height: auto;overflow: hidden;margin: auto;text-align: center;background: red}
 .search{width: 1210px;height: 87px;margin: auto;}
 .searchBac{background: #E45050}
 .search .logo{float: left;margin-top:15px;}
