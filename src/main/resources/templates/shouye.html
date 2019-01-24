@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
@@ -32,7 +32,22 @@
         queryLeftLi();
         getImgs(flog);
         queryTitle();
+        getCookie();
     })
+    //获取后台存入的cookie的账号
+
+    function getCookie(){
+
+        //之前是在服务器操作cookie  现在在浏览器操作cookie
+        var str = document.cookie.split("=");
+
+
+        $("#zhanghao").html(str[1])
+
+    }
+
+
+
     //动画效果
   function aaaaaa(){
       $('.nav_mini ul li').hover(function(){
@@ -88,17 +103,36 @@
             }
         });
     }
+    //注销登录
+   function zhuxiao(){
+       $.ajax({
+           url:"/login/remove",
+           type : "POST",
+           success : function(title) {
+          location.reload()
+           },
+           error : function() {
+               alert("ajax访问失败了,查看控制台");
+           }
+       });
 
-
+   }
 </script>
 <body>
+<a  th:if="${session.user} != null">
+    <font color="blue">欢迎</font> <font id="zhanghao" color="red"></font><font color="blue">用户登录</font>
+    <a href="javascript:zhuxiao()">注销</a>
+</a>
 
-
-
-
+<!--  账号  -->
 <div class="top">
+
     <div class="top_text">
-        <a>用户登录</a>
+
+          <a href="/login/tologin"  th:if="${session.user} == null">
+               <font id="zhanghao" color="red"></font>用户请登录
+          </a>
+
         <a href="">用户注册</a>
         <a href="">供应商登录</a>
         <a href="">供应商注册</a>
